@@ -4,7 +4,6 @@ import React, { useState, useEffect, useMemo, useRef, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import BuyerAuth from '@/components/BuyerAuth';
 import OrderSummary from '@/components/OrderSummary';
 import OffersCoupons from '@/components/OffersCoupons';
@@ -502,9 +501,6 @@ function CheckoutContent() {
             hasItems={hasItems}
           />
         )}
-
-        {/* Footer */}
-        <Footer compact={checkoutStage === 'auth'} />
       </main>
 
       {/* Desktop-only Collapsed Demo Controls Panel */}
