@@ -43,8 +43,8 @@ function CheckoutContent() {
   const [authSubStage, setAuthSubStage] = useState('phone');
 
   // Buyer Info
-  const [buyerPhone, setBuyerPhone] = useState(DEMO_CONFIG.returningBuyerNumber);
-  const [isReturningBuyer, setIsReturningBuyer] = useState(true);
+  const [buyerPhone, setBuyerPhone] = useState('');
+  const [isReturningBuyer, setIsReturningBuyer] = useState(false);
 
   // Cart state: Main Product + Add-ons
   const [product, setProduct] = useState(INITIAL_PRODUCT);
