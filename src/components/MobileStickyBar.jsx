@@ -15,20 +15,7 @@ export default function MobileStickyBar({
   return (
     <div
       id="mobile-sticky-bar"
-      style={{
-        position: 'sticky',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        backgroundColor: '#FFFFFF',
-        borderTop: '1px solid #E2E8F0',
-        padding: '12px 18px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        zIndex: 30,
-        boxShadow: '0 -4px 16px rgba(0, 0, 0, 0.06)',
-      }}
+      className="mobile-sticky-bar"
     >
       <div>
         <div style={{ fontSize: '11px', fontWeight: 500, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.5px' }}>

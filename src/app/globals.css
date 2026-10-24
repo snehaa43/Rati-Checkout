@@ -171,7 +171,7 @@ html, body {
 
 /* Sections */
 .checkout-content {
-  padding: 16px 16px 120px;
+  padding: 16px 16px 110px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -179,7 +179,35 @@ html, body {
 
 @media (min-width: 481px) {
   .checkout-content {
-    padding-bottom: 40px;
+    padding-bottom: 110px;
+  }
+}
+
+/* Fixed Bottom Bar (Always visible without scrolling) */
+.mobile-sticky-bar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--max-width-checkout);
+  background-color: #FFFFFF;
+  border-top: 1px solid var(--color-border);
+  border-left: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 50;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 480px) {
+  .mobile-sticky-bar {
+    border-left: none;
+    border-right: none;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
   }
 }
 
