@@ -153,6 +153,7 @@ export default function PaymentSection({
   const toggleSection = (sectionKey) => {
     if (openSection === sectionKey) {
       setOpenSection(null);
+      onSelectMethod(null);
     } else {
       setOpenSection(sectionKey);
       onSelectMethod(sectionKey);
@@ -161,9 +162,13 @@ export default function PaymentSection({
   };
 
   const handleSelectCod = () => {
-    setOpenSection(null); // COD is a single selection row, not an expandable accordion
-    onSelectMethod('cod');
-    trackEvent('payment_method_selected', { method: 'cod' });
+    if (selectedMethod === 'cod') {
+      onSelectMethod(null);
+    } else {
+      setOpenSection(null); // COD is a single selection row, not an expandable accordion
+      onSelectMethod('cod');
+      trackEvent('payment_method_selected', { method: 'cod' });
+    }
   };
 
   const formatCardNumber = (val) => {

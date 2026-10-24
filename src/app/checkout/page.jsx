@@ -59,8 +59,8 @@ function CheckoutContent() {
   const [isPincodeServiceable, setIsPincodeServiceable] = useState(true);
   const [highlightField, setHighlightField] = useState('');
 
-  // Payment Method: 'upi' | 'cards' | 'netbanking' | 'cod'
-  const [paymentMethod, setPaymentMethod] = useState('upi');
+  // Payment Method: 'upi' | 'cards' | 'netbanking' | 'cod' | null (initially unselected)
+  const [paymentMethod, setPaymentMethod] = useState(null);
 
   // Order Result State: 'confirmed' | 'failed'
   const [orderResultState, setOrderResultState] = useState('confirmed');
@@ -119,11 +119,14 @@ function CheckoutContent() {
       }
     }
 
+    // Potential prepaid saving for paying online (5%)
+    const potentialPrepaidSaving = Math.round(itemsTotal * 0.05 * 100) / 100;
+
     // 3. Prepaid saving: 5% when online payment method is selected (UPI, Cards, Netbanking)
-    // On original ₹2,399 product, saving = ₹119.95. Removed under COD.
+    // On original ₹2,399 product, saving = ₹119.95. Not applied under COD or when no payment method selected yet.
     let prepaidSaving = 0;
-    if (paymentMethod !== 'cod') {
-      prepaidSaving = itemsTotal * 0.05;
+    if (paymentMethod && paymentMethod !== 'cod') {
+      prepaidSaving = potentialPrepaidSaving;
     }
 
     // 4. Shipping fee: Free for demo cart
@@ -147,6 +150,7 @@ function CheckoutContent() {
       couponDiscount,
       appliedCouponCode: appliedCoupon ? appliedCoupon.code : null,
       prepaidSaving,
+      potentialPrepaidSaving,
       shippingFee,
       codFee,
       totalPayable,
@@ -260,7 +264,7 @@ function CheckoutContent() {
 
   // Buy Now validation and trigger
   const handleBuyNow = () => {
-    if (!hasItems) return;
+    if (!hasItems || !paymentMethod) return;
 
     // Validate Address fields
     if (!addressData.fullName || !addressData.fullName.trim()) {
@@ -362,7 +366,7 @@ function CheckoutContent() {
     }
   };
 
-  const isBuyNowDisabled = !hasItems || !isPincodeServiceable;
+  const isBuyNowDisabled = !hasItems || !isPincodeServiceable || !paymentMethod;
 
   if (!mounted) {
     return (
@@ -461,7 +465,7 @@ function CheckoutContent() {
                 <PaymentSection
                   selectedMethod={paymentMethod}
                   onSelectMethod={setPaymentMethod}
-                  prepaidSaving={calculations.prepaidSaving}
+                  prepaidSaving={calculations.potentialPrepaidSaving}
                   codFee={DEMO_CONFIG.codFee}
                 />
               </>

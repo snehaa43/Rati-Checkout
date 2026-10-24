@@ -50,6 +50,7 @@ export default function MobileStickyBar({
           id="btn-buy-now-sticky"
           className="btn-primary"
           style={{ padding: '12px 26px', fontSize: '15px', fontWeight: 600, borderRadius: '12px', minWidth: '150px' }}
+          title={isDisabled ? 'Please select a payment option to continue' : ''}
         >
           {isLoading ? (
             <>
